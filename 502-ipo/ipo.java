@@ -21,6 +21,9 @@ class Solution {
             w+=pq.poll()[1];
             k--;
         }
+        while(!pq.isEmpty() && k>0){
+            w+=pq.poll()[1];
+        }
         return w;
     }
 }
