@@ -1,6 +1,6 @@
 class Solution {
     public int lengthOfLongestSubstring(String s) {
-        return Print(s);
+        return Print2(s);
 
     }
     
@@ -64,6 +64,24 @@ class Solution {
 
             ans=Math.max(ans,ei-si+1);
             ei++;
+        }
+        return ans;
+    }
+    public int Print2(String s){
+        int ans=0;
+        int ei=0;
+        int si=0;
+        Set<Character> set = new HashSet<>();
+        while(ei<s.length()){
+            if(!set.contains(s.charAt(ei))){
+                set.add(s.charAt(ei));
+                ans= Math.max(ans,ei-si+1);
+                ei++;
+            }
+            else{
+                set.remove(s.charAt(si));
+                si++;
+            }
         }
         return ans;
     }
