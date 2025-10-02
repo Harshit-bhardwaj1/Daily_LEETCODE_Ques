@@ -16,7 +16,7 @@ class Solution {
                 count--;
             }
             ei++;
-            if(count==0){
+            if(count==0 && (ei - si) == p.length()){
                 ll.add(si);
             }
             if((ei-si+1)>p.length() ){
