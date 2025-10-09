@@ -9,11 +9,15 @@
  * }
  */
 class Solution {
+    ListNode curr;
     public boolean isPalindrome(ListNode head) {
         if(head==null) return false;
+        curr=head;
         List<Integer> ll = new ArrayList<>();
         // return Palindrome1(head,ll);
-        return Palindrome2(head);
+        // return Palindrome2(head);
+        return Palindrome3(head);
+
     }
     // Approach 1 Arrays List
     public boolean Palindrome1(ListNode head, List<Integer> ll){
@@ -35,17 +39,25 @@ class Solution {
 
     public boolean Palindrome2(ListNode head){
         Stack<Integer> st = new Stack<>();
-        ListNode curr=head;
+        ListNode temp=head;
         while(head!=null){
             st.push(head.val);
             head=head.next;
         }
-        while(curr!=null){
-            if(curr.val!=st.pop()){
+        while(temp!=null){
+            if(temp.val!=st.pop()){
                 return false;
             }
-            curr=curr.next;
+            temp=temp.next;
         }
         return true;
+    }
+
+    public boolean Palindrome3(ListNode head){
+        if(head==null) return true;
+
+        boolean ans = Palindrome3(head.next) && head.val == curr.val;
+        curr= curr.next;
+        return ans;
     }
 }
