@@ -12,9 +12,10 @@ class Solution {
     public boolean isPalindrome(ListNode head) {
         if(head==null) return false;
         List<Integer> ll = new ArrayList<>();
-        return Palindrome1(head,ll);
+        // return Palindrome1(head,ll);
+        return Palindrome2(head);
     }
-
+    // Approach 1 Arrays List
     public boolean Palindrome1(ListNode head, List<Integer> ll){
         while(head!=null){
             ll.add(head.val);
@@ -28,6 +29,22 @@ class Solution {
             }
             i++;
             j--;
+        }
+        return true;
+    }
+
+    public boolean Palindrome2(ListNode head){
+        Stack<Integer> st = new Stack<>();
+        ListNode curr=head;
+        while(head!=null){
+            st.push(head.val);
+            head=head.next;
+        }
+        while(curr!=null){
+            if(curr.val!=st.pop()){
+                return false;
+            }
+            curr=curr.next;
         }
         return true;
     }
