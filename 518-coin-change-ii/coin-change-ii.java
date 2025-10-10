@@ -27,21 +27,21 @@ class Solution {
         return dp[amount][i] = inc+exc;
     }
     public static int Coin_Change_BU(int[] coin, int amount){
-        int[][] dp = new int[coin.length+1][amount+1];
+        int[][] dp = new int[amount+1][coin.length+1];
 
-        for(int i=0; i<dp.length; i++){
-            dp[i][0]=1;
+        for(int i=0; i<dp[0].length; i++){
+            dp[0][i]=1;
         }
-        for(int i=1; i<dp.length; i++){
-            for(int am=1; am<dp[0].length; am++){
+        for(int am=1; am<dp.length; am++){
+            for(int i=1; i<dp[0].length; i++){
                 int inc=0, exc=0;
                 if(coin[i-1]<=am){
-                    inc = dp[i][am-coin[i-1]];
+                    inc = dp[am-coin[i-1]][i];
                 }
-                exc = dp[i-1][am];
-                dp[i][am]=inc+exc;
+                exc = dp[am][i-1];
+                dp[am][i]=inc+exc;
             }
         }
-        return dp[coin.length][amount];
+        return dp[amount][coin.length];
     }
 }
