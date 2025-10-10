@@ -4,8 +4,11 @@ class Solution {
         for(int [] i: dp){
             Arrays.fill(i, -1);
         }
-        return Coin_Change(coins,amount,0,dp);
+        // return Coin_Change(coins,amount,0,dp);
+        return Coin_Change_BU(coins,amount);
+
     }
+    // TD
     public static int Coin_Change(int[] coin, int amount, int i, int[][] dp){
         if(amount==0){
             return 1;
@@ -22,5 +25,23 @@ class Solution {
         }
         exc = Coin_Change(coin, amount, i+1, dp);
         return dp[amount][i] = inc+exc;
+    }
+    public static int Coin_Change_BU(int[] coin, int amount){
+        int[][] dp = new int[coin.length+1][amount+1];
+
+        for(int i=0; i<dp.length; i++){
+            dp[i][0]=1;
+        }
+        for(int i=1; i<dp.length; i++){
+            for(int am=1; am<dp[0].length; am++){
+                int inc=0, exc=0;
+                if(coin[i-1]<=am){
+                    inc = dp[i][am-coin[i-1]];
+                }
+                exc = dp[i-1][am];
+                dp[i][am]=inc+exc;
+            }
+        }
+        return dp[coin.length][amount];
     }
 }
