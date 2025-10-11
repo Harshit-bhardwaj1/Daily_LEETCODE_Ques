@@ -13,9 +13,9 @@ class Solution {
         return ans;
     }
     public static int min_falling_path_sum(int[][] arr, int cr, int cc, int[][] dp) {
-        if (cc < 0 || cc >= arr[0].length) {
-            return 10000000;
-        }
+        // if (cc < 0 || cc >= arr[0].length) {
+        //     return 10000000;
+        // }
         if (cr == arr.length - 1) {
             return arr[cr][cc];
         }
