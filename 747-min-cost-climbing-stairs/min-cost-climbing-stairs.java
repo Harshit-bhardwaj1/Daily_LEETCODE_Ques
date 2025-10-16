@@ -40,3 +40,25 @@ class Solution{
         return dp[idx]= cost[idx] + Math.min(step1,step2);
     }
 }
+
+
+class Solution1{
+    public int minCostClimbingStairs(int[] cost){
+        int[] dp = new int[cost.length];
+        Arrays.fill(dp,-1);
+        int zero= Cost(cost,dp,0);
+        int one= Cost(cost,dp,1);
+        return Math.min(zero, one);
+    }
+    public int Cost(int[] cost, int[] dp, int idx){
+        if(idx>=cost.length){
+            return 0;
+        }
+        if(dp[idx]!=-1){
+            return dp[idx];
+        }
+        int step1= Cost(cost,dp,idx+1);
+        int step2= Cost(cost,dp,idx+2);
+        return dp[idx]= cost[idx]+ Math.min(step1,step2);
+    }
+}
