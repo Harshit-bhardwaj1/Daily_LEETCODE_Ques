@@ -5,7 +5,8 @@ class Solution {
             Arrays.fill(a,-1);
         }
         // return LCSBU(nums1,nums2);
-        return LCSTD(nums1,nums2,0,0,dp);
+        // return LCSTD(nums1,nums2,0,0,dp);
+        return LCS(nums1,nums2,0,0,dp);
 
     }
     public static int LCSBU(int []s1, int []s2){
@@ -41,5 +42,23 @@ class Solution {
             dp[i][j]=Math.max(f,s);
         }
         return dp[i][j];
+    }
+    public int LCS(int[] s1, int [] s2, int i, int j, int[][] dp){
+        if(i>=s1.length || j>=s2.length){
+            return 0;
+        }
+        if(dp[i][j]!=-1){
+            return dp[i][j];
+        }
+        int ans=0;
+        if(s1[i]==s2[j]){
+            ans=1+LCS(s1,s2,i+1,j+1,dp);
+        }
+        else{
+            int f = LCS(s1,s2,i+1,j,dp);
+            int s = LCS(s1,s2,i,j+1,dp);
+            ans= Math.max(f,s);
+        }
+        return dp[i][j]=ans;
     }
 }
