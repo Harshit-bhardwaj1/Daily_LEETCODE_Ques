@@ -16,8 +16,8 @@ class Solution {
     public int lengthOfLIS(int[] nums) {
         int n = nums.length;
         // return lis(nums, n);
-        return Lis2(nums, n);
         // return LIS_NLogn(nums);
+        return LIS_Nlogn2(nums,n);
     }
 
     // LIS Ending with all element
@@ -90,22 +90,36 @@ class Solution {
         }
         return dp[0][n-1];
     }
-
-    public int Lis2(int[] arr, int n){
-        int[] lis = new int[arr.length];
+    public int LIS_Nlogn2(int [] arr, int n){
+        int[] lis = new int[n];
         Arrays.fill(lis,1);
+        lis[0]=arr[0];
+        int len =1;
 
-        for(int i=0; i<n; i++){
-            for(int j = i-1; j>=0; j--){
-                if(arr[i]>arr[j]){
-                    lis[i]= Math.max(lis[i],lis[j]+1);
-                }
+        for(int i=1; i<n; i++){
+            if(lis[len-1]<arr[i]){
+                lis[len]=arr[i];
+                len++;
+            }
+            else{
+                int idx = Binarysearch(lis,0, len-1, arr[i]);
+                lis[idx]=arr[i];
             }
         }
-        int max=0;
-        for(int i=0; i<n; i++){
-            max=Math.max(max,lis[i]);
+        return len;
+    }
+    public int Binarysearch(int[] lis, int lo, int hi, int item){
+        int idx=0;
+        while(lo<=hi){
+            int mid= (lo+hi)/2;
+            if(lis[mid]>=item){
+                idx=mid;
+                hi=mid-1;
+            }
+            else{
+                lo=mid+1;
+            }
         }
-        return max;
+        return idx;
     }
 }
