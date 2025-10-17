@@ -46,7 +46,7 @@ class Solution {
     }
 
     public int Coin_TD(int [] coin, int amount, int i, int[][] dp){
-        if(i>=coin.length || amount<0){
+        if(i>=coin.length){
             return 0;
         }
         if(amount==0){
@@ -55,7 +55,11 @@ class Solution {
         if(dp[amount][i]!=-1){
             return dp[amount][i];
         }
-        int take = Coin_TD(coin,amount-coin[i], i,dp);
+        int take=0;
+        if(amount>=coin[i]){
+
+            take = Coin_TD(coin,amount-coin[i], i,dp);
+        }
         int dont_take = Coin_TD(coin,amount,i+1,dp);
         
         return dp[amount][i]=take+dont_take;
