@@ -16,7 +16,8 @@ class Solution {
     public int lengthOfLIS(int[] nums) {
         int n = nums.length;
         // return lis(nums, n);
-        return LIS_NLogn(nums);
+        return Lis2(nums, n);
+        // return LIS_NLogn(nums);
     }
 
     // LIS Ending with all element
@@ -69,5 +70,42 @@ class Solution {
             }
         }
         return idx;
+    }
+
+    public int Wine_BU(int [] wine){
+        int n = wine.length;
+        int[][] dp = new int[n][n];
+        for(int i=0; i<n; i++){
+            dp[i][i]=wine[i]*n;
+        }
+        int y = n-1;
+        for(int d=1; d<n; d++){
+            for(int j=d; j<n; j++){
+                int i = j-d;
+                int down = wine[i]*y + dp[i+1][j];
+                int left = wine[j]*y + dp[i][j-1];
+                dp[i][j]= Math.max(left,down);
+            }
+            y--;
+        }
+        return dp[0][n-1];
+    }
+
+    public int Lis2(int[] arr, int n){
+        int[] lis = new int[arr.length];
+        Arrays.fill(lis,1);
+
+        for(int i=0; i<n; i++){
+            for(int j = i-1; j>=0; j--){
+                if(arr[i]>arr[j]){
+                    lis[i]= Math.max(lis[i],lis[j]+1);
+                }
+            }
+        }
+        int max=0;
+        for(int i=0; i<n; i++){
+            max=Math.max(max,lis[i]);
+        }
+        return max;
     }
 }
