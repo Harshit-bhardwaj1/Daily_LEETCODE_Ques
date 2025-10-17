@@ -4,8 +4,8 @@ class Solution {
         for(int [] i: dp){
             Arrays.fill(i, -1);
         }
-        return Coin_TD(coins,amount,0,dp);
-        // return Coin_Change_BU(coins,amount);
+        // return Coin_Change(coins,amount,0,dp);
+        return LCS_BD2(coins,amount);
 
     }
     // TD
@@ -44,24 +44,21 @@ class Solution {
         }
         return dp[amount][coin.length];
     }
-
-    public int Coin_TD(int [] coin, int amount, int i, int[][] dp){
-        if(i>=coin.length){
-            return 0;
+    public int LCS_BD2(int[] coin, int amount){
+        int[][] dp = new int[amount+1][coin.length+1];
+        for(int i=0; i<dp[0].length; i++){
+            dp[0][i]=1;
         }
-        if(amount==0){
-            return 1;
+        for(int am=1; am<dp.length; am++){
+            for(int i=1; i<dp[0].length; i++){
+                int inc=0, exc=0;
+                if(am>=coin[i-1]){
+                    inc = dp[am-coin[i-1]][i];
+                }
+                exc= dp[am][i-1];
+                dp[am][i]=inc+exc;
+            }
         }
-        if(dp[amount][i]!=-1){
-            return dp[amount][i];
-        }
-        int take=0;
-        if(amount>=coin[i]){
-
-            take = Coin_TD(coin,amount-coin[i], i,dp);
-        }
-        int dont_take = Coin_TD(coin,amount,i+1,dp);
-        
-        return dp[amount][i]=take+dont_take;
+        return dp[dp.length-1][dp[0].length-1];
     }
 }
