@@ -7,15 +7,15 @@ class Solution {
             Arrays.fill(a, -99999);
         }
 
-        // for (int col = 0; col < matrix[0].length; col++) {
-        //     ans = Math.min(ans, min_falling_path_sum(matrix, 0, col, dp));
-        // }
-        // return ans;
-        return min_falling_path_sum_TD(matrix);
+        for (int col = 0; col < matrix[0].length; col++) {
+            ans = Math.min(ans, min_falling_path_sum(matrix, 0, col, dp));
+        }
+        return ans;
+        // return min_falling_path_sum_BU(matrix);
     }
     public static int min_falling_path_sum(int[][] arr, int cr, int cc, int[][] dp) {
         if (cc < 0 || cc >= arr[0].length) {
-            return 10000000;
+            return Integer.MAX_VALUE;
         }
         if (cr == arr.length - 1) {
             return arr[cr][cc];
@@ -28,7 +28,7 @@ class Solution {
         int rd = min_falling_path_sum(arr, cr + 1, cc + 1, dp); // Right diagonal
         return dp[cr][cc] = Math.min(Math.min(ld, rd), down) + arr[cr][cc];
     }
-    public static int min_falling_path_sum_TD(int[][] grid){
+    public static int min_falling_path_sum_BU(int[][] grid){
         int n = grid.length;
         int m = grid[0].length;
         int[][] dp = new int[grid.length][grid[0].length];
@@ -50,5 +50,20 @@ class Solution {
             ans= Math.min(ans,dp[0][i]);
         }
         return ans;
+    }
+    public int minimum(int[][] grid, int cc, int cr, int[][] dp){
+        if(cc==grid[0].length-1 && cr==grid.length-1 ){
+            return grid[cr][cc];
+        }
+        if(cc>=grid[0].length || cc<0 || cr<0 ||  cr >= grid.length){
+            return 0;
+        }
+        if(dp[cr][cc]!=-1){
+            return dp[cr][cc];
+        }
+        int down = minimum(grid,cc,cr+1,dp);
+        int left = minimum(grid,cc-1,cr+1,dp);
+        int right = minimum(grid,cc+1,cr+1,dp);
+        return dp[cr][cc]=Math.min(down,Math.min(left,right)) + grid[cr][cc];
     }
 }
