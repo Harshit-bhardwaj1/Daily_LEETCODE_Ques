@@ -7,7 +7,7 @@ class Solution {
             }
         }
         // return pathSum(grid, 0, 0, dp);
-        return Path_Sum_TD(grid);
+        return Path_Sum_BU(grid);
     }
     public static int pathSum(int[][] grid, int cr, int cc, int[][] dp) {
         if (cr == grid.length - 1 && cc == grid[0].length - 1) {
@@ -24,7 +24,7 @@ class Solution {
         int down = pathSum(grid, cr + 1, cc, dp);
         return dp[cr][cc] = Math.min(right, down) + grid[cr][cc];
     }
-    public static int Path_Sum_TD(int[][] grid){
+    public static int Path_Sum_BU(int[][] grid){
         int[][] dp = new int[grid.length][grid[0].length];
 
         int sum=0;
