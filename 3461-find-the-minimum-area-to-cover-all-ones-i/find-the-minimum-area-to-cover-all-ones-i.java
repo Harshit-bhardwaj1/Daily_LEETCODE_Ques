@@ -3,23 +3,23 @@ class Solution {
         int row= grid.length;
         int col = grid[0].length;
 
-        int r_min= Integer.MAX_VALUE;
-        int c_min= Integer.MAX_VALUE;
-        int r_max= Integer.MIN_VALUE;
-        int c_max= Integer.MIN_VALUE;
+        int er= 0;
+        int sr= row-1;
+        int ec= 0;
+        int sc= col-1;
 
         for(int i=0; i<row; i++){
             for(int j=0; j<col; j++){
                 if(grid[i][j]==1){
-                    if (i < r_min) r_min = i;
-                    if (i > r_max) r_max = i;
-                    if (j < c_min) c_min = j;
-                    if (j > c_max) c_max = j;
+                   sr=Math.min(sr,i);
+                   er=Math.max(er,i);
+                   sc= Math.min(sc,j);
+                   ec= Math.max(ec,j);
                 }
             }
         }
-        int height = r_max - r_min + 1;
-        int width  = c_max - c_min + 1;
+        int height = er-sr + 1;
+        int width  = ec-sc + 1;
         return height * width;
     }
 }
