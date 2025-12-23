@@ -3,11 +3,7 @@ class Solution {
         return Find(s1,s2,s3);
     }
     public int Find(String s1, String s2, String s3){
-        int a= s1.length();
-        int b= s2.length();
-        int c = s3.length();
-        int n = Math.min(a,Math.min(b,c));
-        //int n1 = Math.min(s1.length(),s2.length(),s3.length());
+        int n = Math.min(s1.length(),Math.min(s2.length(),s3.length()));
         if(s1.charAt(0)!=s2.charAt(0) || s1.charAt(0)!=s3.charAt(0) || s2.charAt(0)!=s3.charAt(0)) {
             return -1;
         }
