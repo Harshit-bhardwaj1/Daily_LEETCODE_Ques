@@ -1,49 +1,36 @@
-class UnionFind {
-    private int[] parent;
-    private int[] rank;
-    
-    public UnionFind(int n) {
-        parent = new int[n];
-        rank = new int[n];
-        for (int i = 0; i < n; i++) {
-            parent[i] = i;  // Each node is its own parent initially
+class Solution {
+    public boolean validPath(int n, int[][] edges, int source, int destination) {
+        HashMap<Integer , List<Integer>> map = new HashMap<>();
+        for(int i=0; i<n; i++){
+            map.put(i, new ArrayList<>());
         }
-    }
-    
-    public int find(int u) {
-        if (parent[u] != u) {
-            parent[u] = find(parent[u]);  // Path compression
+        for(int i=0; i<edges.length; i++){
+            int v1= edges[i][0];
+            int v2= edges[i][1];
+            map.get(v1).add(v2);
+            map.get(v2).add(v1);
         }
-        return parent[u];
+        return Path(map, source, destination);
     }
-    
-    public void union(int u, int v) {
-        int rootU = find(u);
-        int rootV = find(v);
-        
-        if (rootU != rootV) {
-            if (rank[rootU] < rank[rootV]) {
-                parent[rootU] = rootV;
-            } else if (rank[rootU] > rank[rootV]) {
-                parent[rootV] = rootU;
-            } else {
-                parent[rootU] = rootV;
-                rank[rootV]++;
+    public boolean Path(HashMap<Integer, List<Integer>> map, int src, int des){
+        Queue<Integer> q = new LinkedList<>();
+        HashSet<Integer> visited = new HashSet<>();
+        q.add(src);
+        while(!q.isEmpty()){
+            int rv = q.poll();
+            if(visited.contains(rv)){
+                continue;
+            }
+            visited.add(rv);
+            if(rv==des){
+                return true;
+            }
+            for(int nbrs : map.get(rv)){
+                if(!visited.contains(nbrs)){
+                    q.add(nbrs);
+                }
             }
         }
-    }
-}
-
-public class Solution {
-    public boolean validPath(int n, int[][] edges, int source, int destination) {
-        UnionFind uf = new UnionFind(n);
-        
-        // Union all the edges
-        for (int[] edge : edges) {
-            uf.union(edge[0], edge[1]);
-        }
-        
-        // Check if source and destination are in the same component
-        return uf.find(source) == uf.find(destination);
+        return false;
     }
 }
