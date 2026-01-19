@@ -3,7 +3,6 @@ class Solution {
     public boolean checkValidString(String s) {
         int n = s.length();
         dp = new Boolean[n + 1][n + 1];   // dp[i][p]
-        // int[][] dp = new int[]
         // return String(s);
         return Dp(s,0,0);
     }
