@@ -36,8 +36,21 @@ class MinStack {
         //     }
         // }
         // return min;
+        return Recursion(st,Integer.MAX_VALUE);
 
-        return min.peek();
+        // return min.peek();
+    }
+    public int Recursion(Stack<Integer> st, int min){
+        if(st.isEmpty()){
+            return min;
+        }
+        int temp=st.pop();
+        if(temp<min){
+            min=temp;
+        }
+        int ans = Recursion(st,min);
+        st.push(temp);
+        return ans;
     }
 }
 
