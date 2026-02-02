@@ -19,8 +19,7 @@ class Solution {
         int sum=0;
         for(int i=str.length()-1; i>=0; i--){
             if(str.charAt(i)=='1'){
-                int temp = (int)Math.pow(2,count);
-                sum+=temp;
+                sum += (1 << count);
             }
             count++;
         }
