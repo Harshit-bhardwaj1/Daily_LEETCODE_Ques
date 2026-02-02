@@ -24,9 +24,7 @@
 
 class Solution {
     public ListNode reverseList(ListNode head) {
-        // return reverse(head,null);
-        return Reverse1(head,null);
-
+        return reverse(head,null);
     }
     public ListNode reverse(ListNode curr, ListNode prev){
         if(curr==null){
@@ -35,15 +33,5 @@ class Solution {
         ListNode temp = reverse(curr.next,curr);
         curr.next=prev;
         return temp;
-    }
-    public ListNode Reverse1(ListNode head, ListNode prev){
-        ListNode temp=head;
-        while(temp!=null){
-            ListNode next =temp.next;
-            temp.next=prev;
-            prev=temp;
-            temp=next;
-        }
-        return prev;
     }
 }
